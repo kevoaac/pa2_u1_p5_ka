@@ -26,7 +26,6 @@ public class Pa2U1P5KaApplication implements CommandLineRunner{
 		this.estudiante.setApellido("Andrade");
 		this.estudiante.setCedula("0402068555");
 		this.estudiante.setSalario(new BigDecimal(100));
-		
 		System.out.println(estudiante);
 		
 	}
