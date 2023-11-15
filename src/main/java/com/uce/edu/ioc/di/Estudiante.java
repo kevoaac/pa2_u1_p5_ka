@@ -14,7 +14,6 @@ public class Estudiante {
 	private BigDecimal salario; 
 	// BigDecimal: Clase que se debe usar cuando se usa valores monetarios
 	
-	
 	public String getCedula() {
 		return cedula;
 	}
