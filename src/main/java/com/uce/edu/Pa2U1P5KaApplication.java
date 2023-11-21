@@ -40,7 +40,7 @@ public class Pa2U1P5KaApplication implements CommandLineRunner{
 		System.out.println(this.materia1);
 		System.out.println(this.materia);
 
-		this.materia2.setNombre("Nombre final");
+		this.materia2.setNombre("Nombre nu");
 		System.out.println(this.materia2);
 		System.out.println(this.materia1);
 		System.out.println(this.materia);
