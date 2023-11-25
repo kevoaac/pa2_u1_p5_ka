@@ -8,14 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Service
-public class TransferenciaServiceImpl implements ITransferenciaService{
+public class TransferenciaServiceImpl implements ITransferenciaService {
     @Autowired
     private ITransferenciaRepository iTransferenciaRepository;
 
     @Autowired
     private ICuentaBancariaRepository bancariaRepository;
+
     @Override
     public Transferencia buscar(String numero) {
         return this.iTransferenciaRepository.seleccionar(numero);
@@ -41,16 +43,38 @@ public class TransferenciaServiceImpl implements ITransferenciaService{
         // 1. Buscar Cta Origen
         CuentaBancaria ctaOrigen = this.bancariaRepository.seleccionar(numeroOrigen);
         // 2. Consultar el saldo
+        BigDecimal saldoOrigen = ctaOrigen.getSaldo();
         // 3. Validar el saldo
-        // 4. Restar el monto
-        // 5. Actualizar Cta Origen
+        if (saldoOrigen.compareTo(monto) >= 0) {
+            // 4. Restar el monto
+            BigDecimal nuevoSaldoOrigen = saldoOrigen.subtract(monto);
+            // 5. Actualizar Cta Origen
+            ctaOrigen.setSaldo(nuevoSaldoOrigen);
+            this.bancariaRepository.actualizar(ctaOrigen);
+            // 6. Buscar Cta Destino
+            CuentaBancaria ctaDestino = this.bancariaRepository.seleccionar(numeroDestino);
+            // 7. Consultar saldo
+            BigDecimal saldoDestino = ctaDestino.getSaldo();
+            // 8. Sumar el monto
+            BigDecimal nuevoSaldoDestino = saldoDestino.add(monto);
+            // 9. Actualizar Cta Destino
+            ctaDestino.setSaldo(nuevoSaldoDestino);
+            this.bancariaRepository.actualizar(ctaDestino);
+            // 10. Crear la transferencia
+            Transferencia transferencia = new Transferencia();
+            transferencia.setCuentaOrigen(ctaOrigen);
+            transferencia.setCuentaDestino(ctaDestino);
+            transferencia.setFecha(LocalDateTime.now());
+            transferencia.setMonto(monto);
+            transferencia.setNumero("123123123"); // TODO Objeto Numeración con valor distinto para cada transferencia
 
-        // 6. Buscar Cta Destino
-        // 7. Consultar saldo
-        // 8. Sumar el monto
-        // 9. Actualizar Cta Destino
+            this.iTransferenciaRepository.insertar(transferencia);
+            System.out.println("Transferencia realizada con éxito!");
+        } else {
+            System.out.println("Saldo no disponible");
+        }
 
-        // 10. Crear la transferencia
+
     }
 
 }
