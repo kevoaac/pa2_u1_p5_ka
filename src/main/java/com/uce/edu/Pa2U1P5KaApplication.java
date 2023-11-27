@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.uce.edu.transferencia.repository.modelo.CuentaBancaria;
+import com.uce.edu.transferencia.repository.modelo.Transferencia;
 import com.uce.edu.transferencia.service.ICuentaBancariaService;
 import com.uce.edu.transferencia.service.ITransferenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,6 @@ public class Pa2U1P5KaApplication implements CommandLineRunner {
     private ITransferenciaService iTransferenciaService;
     @Autowired
     private ICuentaBancariaService bancariaService;
-
 
     public static void main(String[] args) {
         SpringApplication.run(Pa2U1P5KaApplication.class, args);
@@ -55,6 +55,15 @@ public class Pa2U1P5KaApplication implements CommandLineRunner {
         System.out.println(ctaDestino1);
 
         // TODO Busqueda de la transferencia
+        this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(40));
+        this.iTransferenciaService.realizar("5678", "1234", new BigDecimal(60));
+        this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(2));
+        this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(20));
+
+        System.out.println("\n>>Informe de transferencias");
+        List< Transferencia > transferencias = this.iTransferenciaService.mostrarTodas();
+        transferencias.forEach(System.out::println);
+
     }
 
 }

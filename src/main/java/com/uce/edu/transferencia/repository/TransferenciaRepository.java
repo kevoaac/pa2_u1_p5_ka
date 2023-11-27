@@ -36,4 +36,9 @@ public class TransferenciaRepository implements ITransferenciaRepository{
         Transferencia transfer = this.seleccionar(numero);
         base.remove(transfer);
     }
+
+    @Override
+    public List<Transferencia> listar() {
+        return base;
+    }
 }

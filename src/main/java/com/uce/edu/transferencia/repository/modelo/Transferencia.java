@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Component
 public class Transferencia {
@@ -13,14 +14,24 @@ public class Transferencia {
     private CuentaBancaria cuentaOrigen;
     private CuentaBancaria cuentaDestino;
 
+    private static final AtomicLong contador = new AtomicLong(-1);
+
+    public Transferencia(){
+        this.numero = obtenerProximoId();
+    }
+
+    private String obtenerProximoId(){
+        return String.valueOf(contador.incrementAndGet());
+    }
+
     // GET SET
     public String getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
+//    public void setNumero(String numero) {
+//        this.numero = numero;
+//    }
 
     public LocalDateTime getFecha() {
         return fecha;
