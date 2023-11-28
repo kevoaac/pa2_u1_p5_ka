@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.uce.edu.transferencia.repository.modelo.CuentaBancaria;
+import com.uce.edu.transferencia.repository.modelo.Transferencia;
 import com.uce.edu.transferencia.service.ICuentaBancariaService;
 import com.uce.edu.transferencia.service.ITransferenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +49,38 @@ public class Pa2U1P5KaApplication implements CommandLineRunner {
         this.bancariaService.guardar(ctaDestino);
 
         this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(20));
+        this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(50));
+
 
         CuentaBancaria ctaOrigen1 = this.bancariaService.buscar("1234");
         System.out.println(ctaOrigen1);
         CuentaBancaria ctaDestino1 = this.bancariaService.buscar("5678");
         System.out.println(ctaDestino1);
 
-        // TODO Busqueda de la transferencia
+        this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(50));
+        this.iTransferenciaService.realizar("5678", "1234", new BigDecimal(20));
+
+        // Reporte del estado de cuenta de todas las transferencias
+        System.out.println("\n>>Informe de transferencias");
+        List<Transferencia> transferencias = this.iTransferenciaService.mostrarTodas();
+
+        int indice = 0;
+        for (Transferencia transferencia : transferencias) {
+            indice++;
+            System.out.println("[" + indice + "]" + ":" + transferencia);
+        }
+        //transferencias.forEach(System.out::println);
+
+        // Descontar porcentaje
+        CuentaBancaria miCuenta = new CuentaBancaria();
+        miCuenta.setCedulaPropietario("17955456");
+        miCuenta.setNumero("888");
+        miCuenta.setSaldo(new BigDecimal(2000));
+
+        this.bancariaService.depositar(miCuenta, new BigDecimal(1000));
+        CuentaBancaria cuentaActualizada = this.bancariaService.buscar("8");
+        System.out.println(cuentaActualizada);
+
     }
 
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class TransferenciaRepository implements ITransferenciaRepository{
+public class TransferenciaRepositoryImpl implements ITransferenciaRepository{
     private static List<Transferencia> base = new ArrayList<>();
 
     @Override
@@ -35,5 +35,10 @@ public class TransferenciaRepository implements ITransferenciaRepository{
     public void eliminar(String numero) {
         Transferencia transfer = this.seleccionar(numero);
         base.remove(transfer);
+    }
+
+    @Override
+    public List<Transferencia> listar() {
+        return base;
     }
 }

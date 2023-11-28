@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class TransferenciaServiceImpl implements ITransferenciaService {
@@ -66,7 +67,7 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
             transferencia.setCuentaDestino(ctaDestino);
             transferencia.setFecha(LocalDateTime.now());
             transferencia.setMonto(monto);
-            transferencia.setNumero("123123123"); // TODO Objeto Numeración con valor distinto para cada transferencia
+            // transferencia.setNumero("123123123"); // TODO Objeto Numeración con valor distinto para cada transferencia
 
             this.iTransferenciaRepository.insertar(transferencia);
             System.out.println("Transferencia realizada con éxito!");
@@ -75,6 +76,13 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
         }
 
 
+    }
+
+
+
+    @Override
+    public List<Transferencia> mostrarTodas() {
+        return this.iTransferenciaRepository.listar();
     }
 
 }
