@@ -47,7 +47,6 @@ public class Pa2U1P5KaApplication implements CommandLineRunner {
         ctaDestino.setSaldo(new BigDecimal(200));
         this.bancariaService.guardar(ctaDestino);
 
-        this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(20));
 
         CuentaBancaria ctaOrigen1 = this.bancariaService.buscar("1234");
         System.out.println(ctaOrigen1);
@@ -55,10 +54,9 @@ public class Pa2U1P5KaApplication implements CommandLineRunner {
         System.out.println(ctaDestino1);
 
         // TODO Busqueda de la transferencia
-        this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(40));
+        this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(10));
+        this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(30));
         this.iTransferenciaService.realizar("5678", "1234", new BigDecimal(60));
-        this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(2));
-        this.iTransferenciaService.realizar("1234", "5678", new BigDecimal(20));
 
         System.out.println("\n>>Informe de transferencias");
         List< Transferencia > transferencias = this.iTransferenciaService.mostrarTodas();
