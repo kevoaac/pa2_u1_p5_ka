@@ -9,6 +9,6 @@ public interface ICuentaBancariaService {
     public void guardar(CuentaBancaria cuentaBancaria);
     public void actualizar(CuentaBancaria cuentaBancaria);
     public void eliminar(String numero);
-    public void depositar(CuentaBancaria cuenta,  BigDecimal monto);
+    public void depositar(String numeroCuenta,  BigDecimal monto);
 }
 

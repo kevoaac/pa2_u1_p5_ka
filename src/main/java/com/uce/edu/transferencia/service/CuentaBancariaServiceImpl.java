@@ -31,16 +31,19 @@ public class CuentaBancariaServiceImpl implements ICuentaBancariaService{
         this.bancariaRepository.eliminar(numero);
 
     }
-    public void depositar(CuentaBancaria cuenta,  BigDecimal monto){
-        CuentaBancaria cta = this.bancariaRepository.seleccionar(cuenta.getNumero());
-        cta.setNumero(cuenta.getNumero());
-        cta.setCedulaPropietario(cuenta.getCedulaPropietario());
-        cta.setSaldo(descontarPorcentaje(monto));
+
+
+    public void depositar(String numeroCuenta,  BigDecimal monto){
+        CuentaBancaria cta = this.bancariaRepository.seleccionar(numeroCuenta);
+        BigDecimal saldoActual = cta.getSaldo();
+        BigDecimal montoConDescuento = descontarPorcentaje(monto, 0.9);
+
+        cta.setSaldo(saldoActual.add(montoConDescuento));
         this.bancariaRepository.actualizar(cta);
     }
 
-    public BigDecimal descontarPorcentaje(BigDecimal monto){
-        return monto.multiply(new BigDecimal("0.9"));
+    public BigDecimal descontarPorcentaje(BigDecimal monto, double porcentaje){
+        return monto.multiply(new BigDecimal(porcentaje + ""));
     }
 
 }

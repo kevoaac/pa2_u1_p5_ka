@@ -71,14 +71,16 @@ public class Pa2U1P5KaApplication implements CommandLineRunner {
         }
         //transferencias.forEach(System.out::println);
 
-        // Descontar porcentaje
+        // DESCONTAR FI DE DEPOSITO
+        System.out.println("\n>>>Depositos con el 10% FI");
         CuentaBancaria miCuenta = new CuentaBancaria();
         miCuenta.setCedulaPropietario("17955456");
         miCuenta.setNumero("888");
-        miCuenta.setSaldo(new BigDecimal(2000));
+        miCuenta.setSaldo(new BigDecimal(0));
+        this.bancariaService.guardar(miCuenta);
 
-        this.bancariaService.depositar(miCuenta, new BigDecimal(1000));
-        CuentaBancaria cuentaActualizada = this.bancariaService.buscar("8");
+        this.bancariaService.depositar("888", new BigDecimal(1000));
+        CuentaBancaria cuentaActualizada = this.bancariaService.buscar("888");
         System.out.println(cuentaActualizada);
 
     }
