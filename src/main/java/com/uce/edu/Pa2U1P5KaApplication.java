@@ -19,13 +19,30 @@ import com.uce.edu.service.IMateriaService;
 
 @SpringBootApplication
 public class Pa2U1P5KaApplication implements CommandLineRunner {
-
+    // DI Mediante atributo
     @Autowired
     private ITransferenciaService iTransferenciaService;
+
+    // DI Mediante constructor
+    /*
+    private ITransferenciaService iTransferenciaService;
+    @Autowired
+    public Pa2U1P5KaApplication(ITransferenciaService iTransferenciaService){
+        this.iTransferenciaService = iTransferenciaService;
+    }
+     */
+
+    // DI Mediante método set
+    /*
+    private ITransferenciaService iTransferenciaService;
+    @Autowired
+    public void setiTransferenciaService(ITransferenciaService iTransferenciaService) {
+        this.iTransferenciaService = iTransferenciaService;
+    }
+     */
+
     @Autowired
     private ICuentaBancariaService bancariaService;
-
-
     public static void main(String[] args) {
         SpringApplication.run(Pa2U1P5KaApplication.class, args);
     }
