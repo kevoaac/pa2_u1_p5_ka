@@ -75,6 +75,7 @@ public class Pa2U1P5KaApplication implements CommandLineRunner {
         System.out.println(">>Buscar Productos");
         System.out.println(this.iProductoService.buscar(p1.getCodigoBarras()));
         System.out.println(this.iProductoService.buscar(p2.getCodigoBarras()));
+        System.out.println("Test commit");
 
 
     }
